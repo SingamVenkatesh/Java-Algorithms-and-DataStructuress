@@ -1,0 +1,534 @@
+1. What is File Handling in Java?
+File Handling in Java refers to the process of performing operations like creating,
+reading, writing, updating, or deleting files using Java code. It allows interaction
+ with files stored on the disk, making it possible to persist or retrieve data as needed.
+
+
+✅ 2. Which package is used for File Handling?
+Java provides the java.io package for basic file handling operations.
+Common classes from this package:
+
+File
+
+FileReader
+
+FileWriter
+
+BufferedReader
+
+BufferedWriter
+
+FileInputStream
+
+FileOutputStream
+
+✅ 3. What is the difference between File, FileReader, FileWriter, BufferedReader, and BufferedWriter?
+Class	Purpose
+File	Represents a file or directory. Used to create, delete, check existence, get file info.
+FileReader	Used to read characters from a file (character stream).
+FileWriter	Used to write characters to a file.
+BufferedReader	Wraps FileReader for efficient line-by-line reading using readLine().
+BufferedWriter	Wraps FileWriter for efficient writing (uses buffer).
+
+BufferedReader and BufferedWriter improve performance by reducing disk I/O calls.
+
+✅ 4. How do you create a new file in Java?
+java
+Copy
+Edit
+import java.io.File;
+
+File file = new File("example.txt");
+if (file.createNewFile()) {
+    System.out.println("File created.");
+} else {
+    System.out.println("File already exists.");
+}
+Use createNewFile() method of the File class.
+
+✅ 5. How can you check if a file exists or not?
+java
+Copy
+Edit
+File file = new File("example.txt");
+if (file.exists()) {
+    System.out.println("File exists.");
+} else {
+    System.out.println("File does not exist.");
+}
+Use file.exists() method.
+
+✅ 6. How do you write to a file in Java?
+java
+Copy
+Edit
+import java.io.FileWriter;
+
+FileWriter writer = new FileWriter("example.txt");
+writer.write("Hello, File!");
+writer.close();
+Use FileWriter or BufferedWriter to write content to a file.
+
+✅ 7. How do you read from a file character by character?
+java
+Copy
+Edit
+import java.io.FileReader;
+
+FileReader reader = new FileReader("example.txt");
+int ch;
+while ((ch = reader.read()) != -1) {
+    System.out.print((char) ch);
+}
+reader.close();
+Use FileReader.read() in a loop to read characters one by one.
+
+✅ 8. How do you read a file line by line?
+java
+Copy
+Edit
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+BufferedReader reader = new BufferedReader(new FileReader("example.txt"));
+String line;
+while ((line = reader.readLine()) != null) {
+    System.out.println(line);
+}
+reader.close();
+Use BufferedReader.readLine() for reading line by line.
+
+✅ 9. How do you append content to an existing file?
+java
+Copy
+Edit
+FileWriter writer = new FileWriter("example.txt", true);  // true = append mode
+writer.write("New line appended.\n");
+writer.close();
+Pass true as the second argument in FileWriter constructor.
+
+✅ 10. What happens if you try to read a file that doesn't exist?
+Java throws a FileNotFoundException, which is a checked exception.
+
+You must handle it using try-catch, or declare throws IOException.
+
+Example:
+
+java
+Copy
+Edit
+try {
+    FileReader reader = new FileReader("nonexistent.txt");
+} catch (FileNotFoundException e) {
+    System.out.println("File not found!");
+}
+Le
+
+
+
+
+
+
+
+You said:
+How do you delete a file using Java?
+
+How can you rename a file?
+
+What are BufferedReader and BufferedWriter? Why are they used?
+
+What's the difference between FileReader and BufferedReader?
+
+Can we read and write to the same file simultaneously?
+
+How do you list all files in a directory?
+
+What is the difference between read() and readLine()?
+
+How to read all lines from a file into a List?
+
+How do you count the number of lines or characters in a file?
+
+How do you copy contents from one file to another?
+
+
+
+
+✅ 1. How do you delete a file using Java?
+java
+Copy
+Edit
+import java.io.File;
+
+File file = new File("example.txt");
+if (file.delete()) {
+    System.out.println("File deleted successfully.");
+} else {
+    System.out.println("Failed to delete the file.");
+}
+Use file.delete() method.
+
+Returns true if file is successfully deleted.
+
+✅ 2. How can you rename a file?
+java
+Copy
+Edit
+File oldFile = new File("old.txt");
+File newFile = new File("new.txt");
+
+if (oldFile.renameTo(newFile)) {
+    System.out.println("File renamed successfully.");
+} else {
+    System.out.println("Failed to rename the file.");
+}
+Use renameTo() method of File class.
+
+✅ 3. What are BufferedReader and BufferedWriter? Why are they used?
+BufferedReader reads text from a character-input stream efficiently, using a buffer.
+
+BufferedWriter writes text to a character-output stream efficiently.
+
+Benefits:
+
+Faster than using FileReader/FileWriter alone because they use internal buffers.
+
+BufferedReader provides readLine() method to read line-by-line.
+
+✅ 4. What's the difference between FileReader and BufferedReader?
+Aspect	FileReader	BufferedReader
+Speed	Slower (no buffer)	Faster (uses a buffer)
+Line Reading	No readLine() method	Has readLine() method
+Use Case	Small files	Large files or line-by-line reading
+
+✅ 5. Can we read and write to the same file simultaneously?
+Technically yes, but it's not recommended because:
+
+It can lead to data corruption or overwrite.
+
+Java file writers/readers don’t synchronize access.
+
+📌 Best practice: Read into memory → modify → write back.
+
+✅ 6. How do you list all files in a directory?
+java
+Copy
+Edit
+File folder = new File("C:/MyFolder");
+File[] files = folder.listFiles();
+
+for (File file : files) {
+    System.out.println(file.getName());
+}
+Use File.listFiles() or File.list() to get all files in a folder.
+
+✅ 7. What is the difference between read() and readLine()?
+Method	Description	Returns
+read()	Reads one character at a time	int
+readLine()	Reads one line at a time	String
+
+read() is used for character-by-character reading.
+
+readLine() is better for reading line-by-line.
+
+✅ 8. How to read all lines from a file into a List? (Java 8+)
+java
+Copy
+Edit
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
+List<String> lines = Files.readAllLines(Paths.get("example.txt"));
+for (String line : lines) {
+    System.out.println(line);
+}
+Use Files.readAllLines() from java.nio.file package.
+
+✅ 9. How do you count the number of lines or characters in a file?
+🔹 Count Lines:
+java
+Copy
+Edit
+BufferedReader reader = new BufferedReader(new FileReader("example.txt"));
+int lineCount = 0;
+while (reader.readLine() != null) {
+    lineCount++;
+}
+reader.close();
+🔹 Count Characters:
+java
+Copy
+Edit
+FileReader reader = new FileReader("example.txt");
+int charCount = 0;
+while (reader.read() != -1) {
+    charCount++;
+}
+reader.close();
+✅ 10. How do you copy contents from one file to another?
+java
+Copy
+Edit
+import java.io.*;
+
+public class CopyFile {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("source.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("target.txt"));
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            writer.write(line);
+            writer.newLine();
+        }
+
+        reader.close();
+        writer.close();
+    }
+}
+Use BufferedReader and BufferedWriter to efficiently read and write.
+
+Let me know if you'd like the next advanced set of questions, like:
+
+Serialization
+
+Byte streams vs character streams
+
+Exception handling in file IO
+
+Working with large files
+
+Also, I can give you a PDF summary if needed!
+
+
+
+
+
+
+
+
+You said:
+How to read and reverse each line using StringBuffer?
+
+How to remove a specific line from a file?
+
+How to replace a specific word in a file with another word?
+
+How do you merge contents of two files into a third file?
+
+How do you handle large files (e.g., 1 GB) efficiently in Java?
+
+What are FileInputStream and FileOutputStream used for?
+
+Difference between character streams and byte streams?
+
+How do you store objects in a file? (Serialization)
+
+How do you encrypt file content before saving?
+
+How do you read a file using Scanner class?
+
+What’s the use of mark() and reset() methods in BufferedReader?
+
+Explain how you would implement a log file system in Java.
+
+How do you handle exceptions when working with fil
+
+
+
+
+Let’s go one by one:
+
+✅ 1. How to read and reverse each line using StringBuffer?
+java
+Copy
+Edit
+BufferedReader reader = new BufferedReader(new FileReader("example.txt"));
+String line;
+while ((line = reader.readLine()) != null) {
+    StringBuffer sb = new StringBuffer(line);
+    System.out.println(sb.reverse());
+}
+reader.close();
+StringBuffer.reverse() reverses the content of each line.
+
+✅ 2. How to remove a specific line from a file?
+java
+Copy
+Edit
+BufferedReader reader = new BufferedReader(new FileReader("example.txt"));
+List<String> lines = new ArrayList<>();
+String lineToRemove = "MS Dhoni";
+String line;
+while ((line = reader.readLine()) != null) {
+    if (!line.equals(lineToRemove)) {
+        lines.add(line);
+    }
+}
+reader.close();
+
+BufferedWriter writer = new BufferedWriter(new FileWriter("example.txt"));
+for (String l : lines) {
+    writer.write(l);
+    writer.newLine();
+}
+writer.close();
+Reads all lines, skips the one you want to remove, and writes back the rest.
+
+✅ 3. How to replace a specific word in a file with another word?
+java
+Copy
+Edit
+BufferedReader reader = new BufferedReader(new FileReader("example.txt"));
+List<String> lines = new ArrayList<>();
+String line;
+while ((line = reader.readLine()) != null) {
+    lines.add(line.replace("Kohli", "Sharma"));  // replace word
+}
+reader.close();
+
+BufferedWriter writer = new BufferedWriter(new FileWriter("example.txt"));
+for (String l : lines) {
+    writer.write(l);
+    writer.newLine();
+}
+writer.close();
+✅ 4. How do you merge contents of two files into a third file?
+java
+Copy
+Edit
+BufferedWriter writer = new BufferedWriter(new FileWriter("merged.txt"));
+
+BufferedReader reader1 = new BufferedReader(new FileReader("file1.txt"));
+BufferedReader reader2 = new BufferedReader(new FileReader("file2.txt"));
+
+String line;
+while ((line = reader1.readLine()) != null) {
+    writer.write(line);
+    writer.newLine();
+}
+reader1.close();
+
+while ((line = reader2.readLine()) != null) {
+    writer.write(line);
+    writer.newLine();
+}
+reader2.close();
+writer.close();
+✅ 5. How do you handle large files (e.g., 1 GB) efficiently in Java?
+Use BufferedReader — processes file line-by-line.
+
+Avoid reading the whole file into memory (readAllLines()).
+
+Consider using:
+
+FileChannel with ByteBuffer
+
+Memory-mapped files
+
+Streaming APIs
+
+✅ 6. What are FileInputStream and FileOutputStream used for?
+Used for byte stream operations (binary files).
+
+Example: Reading/writing images, audio, video, PDF, etc.
+
+java
+Copy
+Edit
+FileInputStream in = new FileInputStream("source.jpg");
+FileOutputStream out = new FileOutputStream("target.jpg");
+int b;
+while ((b = in.read()) != -1) {
+    out.write(b);
+}
+in.close();
+out.close();
+✅ 7. Difference between character streams and byte streams?
+Feature	Character Stream (Reader/Writer)	Byte Stream (InputStream/OutputStream)
+Data type handled	Characters (text)	Bytes (binary data)
+Suitable for	Text files	Images, audio, PDF
+Classes used	FileReader, FileWriter	FileInputStream, FileOutputStream
+
+✅ 8. How do you store objects in a file? (Serialization)
+java
+Copy
+Edit
+ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("object.dat"));
+oos.writeObject(myObject);
+oos.close();
+
+ObjectInputStream ois = new ObjectInputStream(new FileInputStream("object.dat"));
+MyClass obj = (MyClass) ois.readObject();
+ois.close();
+The class must implement Serializable interface.
+
+✅ 9. How do you encrypt file content before saving?
+Use a simple algorithm or javax.crypto APIs.
+
+java
+Copy
+Edit
+String content = "Secret";
+String encrypted = Base64.getEncoder().encodeToString(content.getBytes());
+
+FileWriter fw = new FileWriter("secret.txt");
+fw.write(encrypted);
+fw.close();
+For real encryption: use AES with CipherOutputStream.
+
+✅ 10. How do you read a file using Scanner class?
+java
+Copy
+Edit
+Scanner sc = new Scanner(new File("example.txt"));
+while (sc.hasNextLine()) {
+    System.out.println(sc.nextLine());
+}
+sc.close();
+Scanner is good for simple parsing and splitting based on regex.
+
+✅ 11. What’s the use of mark() and reset() methods in BufferedReader?
+mark(int limit) → marks current position in stream.
+
+reset() → returns to the last marked position.
+
+java
+Copy
+Edit
+BufferedReader reader = new BufferedReader(new FileReader("example.txt"));
+reader.mark(100);
+System.out.println(reader.readLine());
+reader.reset();  // Go back to previous mark
+System.out.println(reader.readLine());
+Useful for peeking ahead in streams without losing position.
+
+✅ 12. Explain how you would implement a log file system in Java.
+Append logs using FileWriter in append mode.
+
+Add timestamp and log level (INFO, ERROR).
+
+Use SimpleDateFormat for formatting date.
+
+java
+Copy
+Edit
+FileWriter fw = new FileWriter("log.txt", true);
+fw.write("[INFO] " + new Date() + " - Application Started\n");
+fw.close();
+✅ 13. How do you handle exceptions when working with files?
+Use:
+
+try-catch-finally
+
+or better: try-with-resources (auto closes)
+
+java
+Copy
+Edit
+try (BufferedReader reader = new BufferedReader(new FileReader("example.txt"))) {
+    // File reading
+} catch (IOException e) {
+    e.printStackTrace();
+}

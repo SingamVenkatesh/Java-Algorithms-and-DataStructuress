@@ -1,0 +1,97 @@
+Explanation and Differences
+
+
+✅ 1. FileWriter
+Writes characters directly to a file
+
+No buffering → writes every character directly to disk
+
+Use when: Writing small text data
+
+Example:
+
+java
+Copy
+Edit
+FileWriter fw = new FileWriter("data.txt");
+fw.write("Hello");
+fw.close();
+
+
+
+✅ 2. BufferedWriter
+Wraps around FileWriter to add a buffer
+
+Writes are stored in memory first, then flushed to disk → faster
+
+Use when: Writing a lot of data or writing in loops
+
+Example:
+
+java
+Copy
+Edit
+BufferedWriter bw = new BufferedWriter(new FileWriter("data.txt"));
+bw.write("Hello");
+bw.newLine();
+bw.write("World");
+bw.close();
+
+
+
+
+✅ 3. FileReader
+Reads characters directly from a file
+
+No buffering
+
+Use when: Reading small text files
+
+Example:
+
+java
+Copy
+Edit
+FileReader fr = new FileReader("data.txt");
+int c;
+while ((c = fr.read()) != -1) {
+    System.out.print((char) c);
+}
+fr.close();
+
+
+
+
+
+
+✅ 4. BufferedReader
+Wraps around FileReader for efficient reading
+
+Supports readLine() method → reads line by line
+
+Use when: Reading large files or when you need line-by-line access
+
+Example:
+
+java
+Copy
+Edit
+BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+String line;
+while ((line = br.readLine()) != null) {
+    System.out.println(line);
+}
+br.close();
+🔁 Buffered vs Non-Buffered Analogy
+Imagine:
+
+FileWriter/FileReader = writing or reading 1 letter at a time
+
+BufferedWriter/BufferedReader = writing/reading an entire sentence or paragraph at once
+
+✅ Summary in 1 Line
+Class	Summary
+FileWriter	Writes characters to file directly (slow for big data)
+BufferedWriter	Writes characters via buffer (faster, supports newLine())
+FileReader	Reads characters from file one-by-one
+BufferedReader	Reads characters via buffer, supports readLine()
