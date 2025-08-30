@@ -1,4 +1,5 @@
-package ADVANCEDJAVA2025CHANTI.JDBC.ApplicationJDBC;
+package AdvancedJavaChantiTrainer2025.JDBC.ApplicationJDBC;
+
 
 import java.io.FileInputStream;
 import java.sql.Connection;

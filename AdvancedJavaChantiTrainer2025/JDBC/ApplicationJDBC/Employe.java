@@ -1,4 +1,6 @@
-package ADVANCEDJAVA2025CHANTI.JDBC.ApplicationJDBC;
+package AdvancedJavaChantiTrainer2025.JDBC.ApplicationJDBC;
+
+
 public class Employe {
     private int id;
     private String name;

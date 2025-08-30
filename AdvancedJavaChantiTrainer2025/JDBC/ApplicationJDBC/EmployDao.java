@@ -1,4 +1,4 @@
-package ADVANCEDJAVA2025CHANTI.JDBC.ApplicationJDBC;
+package AdvancedJavaChantiTrainer2025.JDBC.ApplicationJDBC;
 
 import ADVANCEDJAVA2025CHANTI.JDBC.Dbcon;
 import java.io.PrintStream;

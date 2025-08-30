@@ -1,12 +1,8 @@
-package ADVANCEDJAVA2025CHANTI.JDBC.ApplicationJDBC;
-
+package AdvancedJavaChantiTrainer2025.JDBC.ApplicationJDBC;
 import java.util.ArrayList;
 
 public class EmployTest
 {
-    public EmployTest() {
-    }
-
     public static void main(String[] args)
     {
         Employe e1 = new Employe(5, "rajesh", 8999.0F);
@@ -18,5 +14,9 @@ public class EmployTest
        {
            System.out.println(s);
        }
+
+       Employe s=new Employe(8,"Sampath",45558);
+       int a=e.saveEmploy(s);
+        System.out.println(a);
     }
 }
