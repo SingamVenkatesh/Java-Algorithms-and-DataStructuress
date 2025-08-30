@@ -1,0 +1,972 @@
+Pre-requisite 
+|- Core Java 
+|- SQL, Database
+|- Html, CSS, Javascript      
+|- xml basics
+
+
+
+
+
+
+
+
+
+Advance Java 
+------------ 
+1. Jdbc
+2. Servlet                
+3. Jsp
+4. Jstl
+
+
+
+
+
+
+
+1. Jdbc  [SQL]   
+  - introduction
+  - files, database, dbms, rdbms, sql
+  - jdbc vs odbc
+  - jdbc drivers and types of jdbc drivers
+  - first jdbc program
+  - Types of statements, Statement, PreparedStatement, CallableStatement
+  - ResultSet
+  - batch processing
+  - transaction management
+  - working with dates
+
+2. Servlets
+  - introduction to servlet
+  - introduction to web application  
+  - web server, servlet container
+  - http protocol
+  - Servlet interface, HttpServlet class, GenericServlet class
+  - ServletConfig, ServletContext
+  - form based applications   
+  - servlet life cycle 
+  - RequestDispatcher
+  - scope variables (page, session, application and request)
+  - doGet() and doPost()
+  - <load-on-startup>
+
+3. JSP
+  - introduction
+  - differences between servlet and jsp
+  - jsp elements
+    i. template text
+    ii. scriptlet
+    iii. jsp declaration 
+    iv. jsp expression 
+    v. jsp directives
+    vi. jsp action tags
+    vii. jsp custom tags
+    viii. EL-Expression
+  - jsp Implicit objects/variables  (total 9)
+    i. request ii. response iii. session, iv. out v. pageContext 
+    vi. page vii. application viii. config ix. exception
+  - mvc architecture, mvc-1, mvc-2
+  - types of logics (business, presentation, persistence logics etc)
+  - types of components (model, view, controller)
+  - java beans
+  - jstl 
+
+---------------------------------------------------------------------------
+
+JDBC : 
+----
+what is jdbc?
+--> jdbc stands for java database connectivity 
+
+--> jdbc is an api given by sun microsystems in 1997.
+
+--> jdbc api is used to develop a java program to communicate or interact 
+    with the database server.
+
+--> communicating or interacting with the database server means sending sql
+    queries from java program to the database server.
+
+API stands for Application Programming Interface
+
+--> api means predefined classes and interfaces and not only predefined 
+    classes and interfaces even predefined methods, variables, packages
+    and constructors are also called as api.
+
+what is a database?
+--> a database is an organized collection of data which is stored digitally
+    in the computer system and retrieved digitally from the computer system
+    (local computer system or remote computer system).
+
+dbms 
+----
+--> dbms stands for database management system
+
+--> dbms is a software which is used to create and manage database.
+
+--> the database which is created by using dbms uses files internally to
+    store the data and files are having disadvantages.
+
+disadvantages of files (flat files):
+----------------------
+1. data redundency (duplicate data)
+2. data inconsistency
+3. no data recovery
+4. store small amount of data
+5. no query language support
+6. no security  
+
+rdbms
+-----
+--> rdbms stands for relational database management system
+
+--> rdbms is an advance version of dbms.
+
+--> rdbms is a software which is used to create and manage database.
+
+--> the database which is created by using rdbms uses tables internally 
+    to store the data.
+
+advantages of rdbms             
+-------------------
+1. no data redundency
+2. data consistency
+3. data recovery
+4. store large amount of data
+5. query language support
+6. security
+
+The following are the rdbms softwares
+
+1. Oracle Database
+2. MySQL Database
+3. Sybase Database
+4. IBM Db2 Database
+5. Microsoft SQL Server Database
+   etc
+
+--> All the rdbms softwares use one query language called as SQL.
+
+SQL :  
+---
+--> SQL stands for Structured Query Language
+
+--> SQL is a query language and it is used to communicate or interact with 
+    the database server.
+
+--> communicating or interacting with database means sending sql queries.
+
+--> in SQL, we have commands which are called as SQL commands.
+
+Types of SQL commands
+---------------------
+--> there are 5 types of SQL commands
+
+1. DDL commands
+2. DML commands
+3. DQL/DRL commands
+4. DCL commands
+5. TCL commands
+
+1. DDL commands (Data Definition Language)             
+   ex: create, drop, truncate, rename, alter
+
+2. DML commands (Data Manipulation Language)
+   ex: insert, update, delete
+
+3. DRL/DQL commands (Data Retrieval/Query Language)
+   ex: select
+
+4. DCL commands (Data Control Language)
+   ex: grant, revoke
+
+5. TCL commands (Transaction Control Language)
+   ex: rollback, commit, savepoint
+                                                                      
+---------------------------------------------------------------------------
+
+--> database vendors develop and release database softwares.
+
+--> when we download and install database software in the computer we get 
+    2 softwares.
+
+1. Database server software
+2. Database client software
+
+--> we use database client software to write and send the sql queries to 
+    the database server software.
+
+--> database server software executes the sql queries and based on the sql 
+    queries database server software performs some operations like creating
+    the table, inserting the records, updating the records, deleting the
+    records and retrieving the records from the database tables.
+
+--> if database client software wants to communicate or interact with the  
+    database server software then we must have to create the connection
+    between the database client software and the database server software.
+
+---------------------------------------------------------------------------
+
+--> database vendors release database software in 2 formats
+
+1. database enterprise edition (commercial)
+2. database express edition (open-source)   
+
+oracle database --> express edition --> 10g, 11g, 12c, 18c, 21c, 23c
+
+https://www.oracle.com/database/technologies/xe-prior-release-downloads.html
+
+OracleXE.zip 
+|- Disk1
+   |- setup.exe --> run as administrator
+
+Oracle Database 
+|- database accounts --> system, sys (administration privileges/permissions)
+|- password --> system (all in small cases) 
+
+note: every database supports sql queries and database commands.
+
+oracle database          
+|- sql queries (database independent)
+|- database commands (database dependent)
+
+oracle database commands
+ex: connect, disconnect, describe, show, clear screen, edit, exit etc
+
+Note: 
+1. all the oracle database commands can be executed without semicolon.
+
+2. all the sql queries must be executed by using semicolon.
+
+3. in oracle db, creating a user means creating a database account.
+
+creating a user in oracle db :
+----------------------------
+1. open oracle database client software (run sql command line)
+
+2. SQL>connect system/system
+
+3. SQL>create user fp15 identified by welcome1;
+
+4. SQL>grant connect, resource to fp15;
+
+5. SQL>grant create sequence to fp15;
+
+6. SQL>show user
+
+7. SQL>disconnect
+
+8. SQL>connect fp15/welcome1
+
+Note: In oracle database, oracle database vendor has created some tables
+      by default which are called as metadata tables and we cannot modify 
+      and drop those tables.
+
+    ex: tab, all_users, all_procedures etc
+
+-------------------------------------------------------------------------------------
+
+--> a single database client software cannot be used to communicate or
+    interact with all the database servers.
+
+--> microsoft has observed this problem and to resolve this problem 
+    microsoft has released odbc api in 1992.
+
+ODBC (Open Database Connectivity)
+----
+what is odbc?
+--> odbc is an api given by microsoft in 1992 and by using odbc api we can
+    develop a client program to communicate or interact with all the data-
+    base servers.
+
+--> api is partial because api contains mostly abstract classes, interfaces
+    and few concrete classes so odbc api is partial, api becomes complete 
+    if someone provides the implementation.
+
+--> microsoft has provided the implementation to odbc api using c and c++ 
+    languages and the implementation which is provided by microsoft to odbc
+    api is called as odbc driver.
+
+--> odbc driver is a software which is developed by microsoft using c & c++.
+
+--> using odbc driver software we can communicate or interact with all the
+    database servers.
+
+--> as a competitor to microsoft's odbc api sun microsystems has released 
+    jdbc api in 1997.
+
+JDBC (Java Database Connectivity)
+----
+what is jdbc?
+--> jdbc is an api given by sun microsystems in 1997 and using jdbc api we
+    can develop the java program to communicate or interact with all the 
+    database servers.
+
+--> api's are partial because api contains abstract classes & interfaces.
+
+--> api's become complete if someone provides the implementation.
+
+--> all the database vendors have provided the implementation to jdbc api
+    using java language and the implementation is called as jdbc driver.
+
+--> jdbc driver is a software using which we can develop the java program 
+    to communicate or interact with all the database servers.
+
+--> for different databases we have different jdbc drivers, if database is
+    changed then jdbc driver must be changed but the java program will be
+    same.
+
+-------------------------------------------------------------------------------------
+	  	JDBC				    ODBC
+-------------------------------------------------------------------------------------
+1. stands java database connectivity   1. stands open database connectivity
+
+2. given by sun microsystems in 1997   2. given by microsoft in 1992
+
+3. implementation is provided in java  3. implementation is provided in c & c++
+   
+4. jdbc driver is platform independent 4. odbc driver is platform dependent.
+
+5. jdbc driver works on any os         5. odbc driver works only on windows os.
+
+6. jdbc is object oriented             6. odbc is procedure oriented
+
+7. in jdbc driver performance is high  7. in odbc driver performance is low
+
+8. jdbc driver we can use only for     8. odbc driver we can use for any 
+   java language.                         language.
+-------------------------------------------------------------------------------------
+
+--> jdbc is an api and it is a part of jse.
+
+--> sun microsystems has given jdbc api in the form of two packages.
+
+1. java.sql 
+2. javax.sql
+
+--> The most important classes and interfaces of java.sql package.
+
+     interfaces :
+     ----------
+     1. Driver
+     2. Connection
+     3. Statement
+     4. PreparedStatement
+     5. CallableStatement
+     6. ResultSet
+     7. ResultSetMetaData
+     8. ParameterMetaData
+     9. DatabaseMetaData
+
+     classes :
+     -------
+     1. DriverManager
+     2. Date
+
+---> The most important classes and interfaces of javax.sql package.
+
+     interfaces :
+     ----------
+     1. DataSource
+
+Architecture Of Jdbc
+--------------------
+Jdbc Api 
+   |
+Java Program
+   |
+Jdbc Driver
+   |
+Database Server
+
+--> if we want to develop a java program to communicate or interact with 
+    the database server 3 things are required : 
+
+     1. database server
+     2. jdbc driver 
+     3. java program with jdbc code (jdbc application)
+
+steps to develop jdbc application :
+---------------------------------
+--> there are 5 steps to develop the jdbc application
+
+step-1: register the jdbc driver
+
+step-2: create or establish the connection
+
+step-3: create the statement object
+
+step-4: execute the sql query
+
+step-5: close the connection
+
+What is Jdbc Driver?
+--> Jdbc driver is a translator which converts java calls into database 
+    native function calls.
+
+--> Jdbc driver is a software component which helps the java program to 
+    communicate or interact with the database server.
+
+Types of jdbc drivers :
+---------------------
+--> There are 4 types of jdbc drivers
+
+1. Type-1 (Jdbc-Odbc Bridge Driver)
+2. Type-2 (Native Api Driver)
+3. Type-3 (Network Protocol Driver)
+4. Type-4 (Thin Driver)  
+
+--> Type-4 (thin driver) is purely developed in java and it is the fastest 
+    jdbc driver.
+
+--> Type-1, Type-2 and Type-3 jdbc drivers are not purely developed in java,
+    some part is developed in native languages and some part is developed
+    in java so java calls should be converted to native function calls thats
+    why these 3 types of jdbc drivers are slow.
+
+--> the latest version of jdbc api is 4.3. 
+
+--> from jdbc api 4.0 onwards type-1 jdbc driver is removed.
+
+java.sql
+|- Driver (interface)
+
+what is driver class?
+--> a class which provides the implementation to Driver interface is called
+    as driver class.
+
+--> all the database vendors have provided the implementation to Driver 
+    interface and such class is called driver class.
+
+--> database vendors have developed driver class.
+
+--> in driver class all database vendors have written the code or logic to 
+    convert java calls into database native function calls so driver class 
+    is nothing but jdbc driver.
+
+--> jdbc driver is driver class or driver class is jdbc driver.
+
+-------------------------------------------------------------------
+oracle type-4 jdbc driver class -> oracle.jdbc.driver.OracleDriver (oracle type-4 jdbc driver)
+-------------------------------------------------------------------
+--------------------------------------------------------
+mysql type-4 jdbc driver class -> com.mysql.jdbc.Driver (mysql type-4 jdbc driver)
+--------------------------------------------------------
+
+driver class <--> jdbc driver
+
+java.sql
+|- DriverManager (C)
+
+--> DriverManager is a class available in java.sql package.
+
+--> DriverManager manages set of jdbc drivers.
+
+--> DriverManager maintains a list of jdbc drivers, when we try to create
+    or establish the connection with the database server then DriverManager
+    takes appropriate jdbc driver from the list of registered jdbc drivers
+    and helps java program to use jdbc driver to communicate or interact 
+    with the database server.
+
+step-1: register the jdbc driver
+------
+    -----------------------------------------------------
+      Driver d = new oracle.jdbc.driver.OracleDriver();
+      DriverManager.registerDriver(d);
+    -----------------------------------------------------
+
+--> creating the driver class object and giving the driver class object to 
+    DriverManager class by using registerDriver() of DriverManager class is 
+    called as register the jdbc driver.
+
+java.sql
+|- DriverManager 
+   |- public static void registerDriver(Driver obj)
+
+--> registerDriver() registers the jdbc driver with DriverManager.
+
+--> a database url contains the information of the database like database
+    name, ip address of the computer on which database is running, port
+    number, protocol etc.
+
+--> database vendors are responsible to provide database url.
+
+oracle db url --> jdbc:oracle:thin:@localhost:1521:xe
+
+mysql db url --> jdbc:mysql://localhost:3306/databasename
+
+step-2: create or establish the connection
+------
+--> if the java program wants to communicate or interact with the database
+    server then we must have to create or establish the connection with the
+    database server.
+
+--> the connection will be a logical connection.  
+
+-------------------------------------------------------------------------------------
+ Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "fp14", "welcome1");
+-------------------------------------------------------------------------------------
+
+--> here con is an object of Connection class which respresents database
+    connection.
+
+DriverManager
+|- public static Connection getConnection(String dburl, String dbusr, String dbpwd)
+
+--> getConnection() uses database url to know the information of database 
+    and using username and password getConnection() creates or establish 
+    the connection with the database server, creates and returns connection 
+    object.
+
+--> here connection object represents database connection.
+
+---------------------------------------------------------------------------------------------
+--> A connection is like a road between java program and database server.
+
+--> We need a vehicle who can carry sql queries from java program to the 
+    database server over road (connection) so a statement acts as vehicle.
+
+--> A statement is an object and using statement object we can send sql 
+    queries from java program to the database server over the connection.
+
+--> in jdbc, 3 types of statements are there.
+ 
+    1. Statement
+    2. PreparedStatement
+    3. CallableStatement
+
+--> All the above 3 statements are interfaces available in java.sql.
+
+--> Database vendors have provided the implementation classes to all the 
+    above 3 interfaces.
+
+--> Sun microsystems has provided factory methods which creates and returns
+    the object of all the above 3 interfaces implementation classes.
+
+--> We can create object to implementation class of an interface but not 
+    interface but we can create reference variable to an interface to hold
+    implementation class object.
+
+Connection
+|- public Statement createStatement():
+
+--> it creates and returns statement object which is used to send the sql 
+    queries from java program to the database server.
+
+step-3: create the statement object
+------
+--> we need a statement object to send the sql queries from java program 
+    to the database server over the connection.
+ 
+     -------------------------------------------
+       Statement stmt = con.createStatement();
+     -------------------------------------------
+
+step-4: execute the sql query
+------
+--> using statement object sending the sql query from java program to the
+    database server over the connection is called as execute the sql query.
+
+------------------------------------------------------------------------------------
+ int n = stmt.executeUpdate("insert into employee values(1, 'ravi', 'm', 1000.0)");
+------------------------------------------------------------------------------------
+
+section-5: close the connection
+---------
+--> after using the connection, if the connection is not in use then it is 
+    always recommended to close the connection.
+
+    ----------------
+      con.close();
+    ----------------
+
+Connection
+|- public void close(): it closes the database connection.
+
+--> In jdbc, all the sql queries are divided into 2 groups :
+ 
+    1. non-select queries  2. select queries
+
+1. non-select queries
+
+--> the queries which do not start with select keyword.
+
+ex: insert, update, delete
+
+--> to send non-select queries sun microsystems has provided a method :
+                 -----------------------------------
+                   int executeUpdate(String query)
+                 -----------------------------------
+2. select queries
+
+--> the queries which starts with select keyword.
+
+ex: select
+
+--> to send select queries sun microsystems has provided a method :
+              ----------------------------------------
+                ResultSet executeQuery(String query)
+              ----------------------------------------
+
+
+ Notes:
+Calling executeQuery() on a statement like INSERT or UPDATE will throw an SQLException.
+
+Calling executeUpdate() on a SELECT statement will also throw an SQLException.
+
+Summary Table:
+Method	                                                 Used For	                                    Return Type                                                  	Notes
+executeUpdate(String sql)	   INSERT, UPDATE, DELETE, DDL	           int	                                                        Rows affected
+executeQuery(String sql)	      SELECT                                                 	ResultSet	                                  Must be used for retrieval
+
+
+
+
+--> both executeUpdate() and executeQuery() are available in Statement.
+
+java.sql
+|- Statement
+   |- public int executeUpdate(String query)
+   |- public ResultSet executeQuery(String query)
+
+Req: write a jdbc program to insert employee record in database table.
+
+oracle 10g --> ojdbc14.jar (com\jdbc\driver\OracleDriver.class)
+oracle 11g --> ojdbc6.jar (com\jdbc\driver\OracleDriver.class)
+
+--> ojdbc6.jar is available in oracle datatabase software folders.
+
+Note:
+1. All the methods which are coming from java.sql package throws SQLExcep-
+   tion which is a checked exception.
+
+2. it is always recommended to use jdbc to perform dml and dql operations
+   only.
+
+DML Operations Using Statement :
+------------------------------
+1. insert
+2. update
+3. delete
+
+DQL/DRL Operations Using Statement :
+----------------------------------
+1. select all the columns and all the records
+2. select all the columns and specific records
+3. select specific columns and all the records
+4. select specific columns and specific records
+5. select all the columns and one record
+6. select 1 column and 1 record
+
+ResultSet :
+---------
+--> ResultSet is an object which holds the result which is returned by a 
+    select query.
+
+--> The result of a select query is table of records so a ResultSet object
+    holds table of records.
+
+--> ResultSet object maintains a cursor which is initially before the first 
+    record, to move the cursor to next record we have to use next() method.
+
+java.sql
+|- ResultSet (interface)
+
+--> ResultSet is an object of a class which is an implementation class of
+    ResultSet interface so indirectly we can say ResultSet is an object.
+
+------------------------------------------------------------------------------
+
+Ways Of Registering The Jdbc Driver :
+-----------------------------------
+--> creating jdbc driver class object and giving jdbc driver class object
+    to DriverManager by using registerDriver() of DriverManager class is
+    called as register jdbc driver.
+
+--> there are 3 ways to register the jdbc drivers.
+
+1st way:
+-------
+Driver d = new oracle.jdbc.driver.OracleDriver();
+DriverManager.registerDriver(d);
+
+--> in this way of registering the jdbc driver, jdbc driver is registered 
+    for 2 times.
+
+2nd way:
+-------
+--> load jdbc driver class explicitly in jvm's memory by using forName() 
+    factory method then automatically the jdbc driver will be registered.
+
+Class.forName("oracle.jdbc.driver.OracleDriver");
+
+--> in jdbc, loading the jdbc driver class means registering the jdbc driver.
+
+3rd way:
+-------
+--> from jdbc api 4.0 version onwards we no need to register the jdbc driver,
+    the jdbc driver will be registered automatically.
+
+Note:
+1. database vendors have developed jdbc driver classes and as part of jdbc
+   driver classes database vendors have written one static block and inside
+   the static block database vendors have written the code to register the
+   jdbc driver.
+
+     ex: oracle jdbc driver class
+
+         package oracle.jdbc.driver;
+
+         public class OracleDriver implements Driver
+         {
+             static 
+             {
+                Driver d = new oracle.jdbc.driver.OracleDriver();
+                DriverManager.registerDriver(d);
+             }   
+           
+             //some other code
+         }
+      
+      ex: mysql jdbc driver class
+
+          package com.mysql.jdbc;
+
+          public class Driver implements Driver
+          {
+             static 
+             {
+                Driver d = new com.mysql.jdbc.Driver();
+                DriverManager.registerDriver(d);
+             }   
+
+             //some other code
+          }       
+
+---------------------------------------------------------------------------------
+
+PreparedStatement :
+-----------------
+--> PreparedStatement is an object and it is used to send parameterized 
+    sql queries from java program to the database server.
+
+steps to develop jdbc application using PreparedStatement :
+---------------------------------------------------------
+step-1: register the jdbc driver (load the jdbc driver)
+
+step-2: create or establish the connection
+
+step-3: create the PreparedStatement object by passing the sql query with 
+        positional parameters
+
+step-4: set the values for all the positional parameters
+
+step-5: execute the sql query
+
+step-6: close the connection
+
+positional parameters :
+---------------------
+--> in jdbc, question mark symbol is called as positional parameter.
+
+--> positional parameters act as place holders in sql query, in sql query
+    instead of using values we have to use positional parameters and we
+    have to pass the values to positional parameters by using setter methods
+    of PreparedStatement.
+
+--> every positional parameter has index which starts from '1'.
+
+    ex: ?, ?, ?, ?, ? ---> positional parameters
+        |  |  |  |  |
+        1  2  3  4  5 ---> indexes
+
+--> in jdbc, to set the values for positional parameters we have to use 
+    setter methods of PreparedStatement.
+
+PreparedStatement
+|- void setInt(int positionalParamIndex, int value)
+|- void setString(int positionalParamIndex, String value)
+|- void setFloat(int positionalParamIndex, float value)
+|- void setDouble(int positionalParamIndex, double value)
+|- void setDate(int positionalParamIndex, java.sql.Date d)
+   etc
+
+java.sql
+|- PreparedStatement (I)
+|- Connection
+   |- public PreparedStatement prepareStatement(String query)
+
+DML Operations Using PreparedStatement :
+--------------------------------------
+1. insert
+2. update
+3. delete
+
+DQL/DRL Operations Using PreparedStatement :
+------------------------------------------
+1. select all the columns and all the records
+2. select all the columns and specific records
+3. select specific columns and all the records
+4. select specific columns and specific records
+5. select all the columns and one record
+6. select 1 column and 1 record
+
+----------------------------------------------------------------------------
+
+assignment
+----------
+my_images
+|- id (number)
+|- name (varchar2)
+|- image (blob)
+
+d:\pictures\tiger.jpg
+
+req: write a jdbc program to insert an image in the database table.
+
+---------------------------------------------------------------------------
+
+CallableStatement :
+-----------------
+--> it is an object and it is used to call a database stored procedure from
+    java program.
+
+java.sql
+|- Connection
+   |- public CallableStatement prepareCall(String sql)
+|- CallableStatement
+   |- boolean execute()
+
+what is a stored procedure?
+--> a stored procedure is a reusable block of statements which is written 
+    to perform some operation.
+
+--> in a stored procedure we write business logic and sql queries.
+
+--> a stored procedure is created, resided and executed in the database.
+
+------------------------------------------------------------------------------------
+
+sql> create table product
+     (
+        pid number(5) primary key,
+        pname varchar2(20),
+        price number(8, 2),
+     );
+
+sql> create or replace procedure myproc
+     as
+     begin
+     insert into product values(1, 'diprin', 10.0);
+     end myproc;
+     /
+
+--> to call the stored procedure from database client software
+
+sql> exec myproc     
+
+-------------------------------------------------------------------------------------
+
+Batch Processing 
+----------------
+--> grouping multiple related sql queries as one batch and submitting the 
+    batch in one call to the database server is called as batch processing.
+
+--> as we are not communicating with the database server multiple times  
+    over the network so batch processing improves performance.
+
+Statement
+|- void addBatch(String query)
+|- int[] executeBatch()
+
+---------------------------------------------------------------------------
+
+Transaction Management :
+----------------------               
+what is a transaction?
+--> executing the sequence of steps as a single unit of work is called as 
+    transaction.				 
+                           (or)
+
+--> executing group of operations to perform one task is called as 
+    transaction.
+
+ex: transfering funds
+    depositing amount
+    withdrawing amount
+
+--> a transaction has a starting point and an ending point.
+
+--> in a transaction if all the operations are executed completely then 
+    it is called as successful transaction and in a transaction if any 
+    operation is failed to execute then it is called failure transaction.
+
+--> whether the transaction is successful or failure after the transaction
+    some changes will happen in the database, in case of successful transac- 
+    tion complete changes will happen in the database and in case of failure
+    transaction incomplete changes will happen in the database.
+
+--> on successful transaction we have to make all the complete changes 
+    permanent in the database by commit and on failure transaction we
+    should not make the incomplete changes permanent in the database we
+    should bring back all the incomplete changes to previous state in
+    the database by rollback.
+ 
+Types of transactions
+---------------------
+--> there are 2 types of transactions
+
+1. local transaction
+2. global transaction 
+
+--> if we perform a transaction with a single resource (database) then it
+    is called as local transaction.
+
+--> if we perform a transaction with two resources (databases) then it is
+    called as global transaction.
+
+Note:
+1. jdbc supports local transaction but not global transaction.
+
+2. in java, to work with global transaction sun microsystems has provided 
+   one api called as JTA.
+
+JTA stands for Java Transaction Api
+ 
+--> if multiple people want to perform multiple transactions then everyone 
+    should use a seperate connection.
+
+--> by default in jdbc applications jdbc driver manages transaction which
+    means by default jdbc driver will do auto commit for every transaction
+    whether it is successful or failure.
+
+--> we should not allow jdbc driver to manage the transaction, we should 
+    write the code to manage the transaction.
+
+--> we have to manage the transaction only for dml queries but not for dql 
+    queries.
+
+java.sql
+|- Connection
+   |- void setAutoCommit(boolean b)
+   |- void commit()
+   |- void rollback()
+
+servlets
+--------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
